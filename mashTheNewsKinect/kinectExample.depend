@@ -1479,14 +1479,15 @@
 1300948330 /home/lauri/code/of_preRelease_v0062_linux_FAT/apps/addonsExamples/kinect/src/ofxKinect/src/ofxKinectRecorder.h
 	"ofMain.h"
 
-1301315739 source:/home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/main.cpp
+1301316157 source:/home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/main.cpp
 	"testApp.h"
 	"ofAppGlutWindow.h"
 
-1301316145 /home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/testApp.h
+1301317658 /home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/testApp.h
 	"ofMain.h"
 	"ofxOpenCv.h"
 	"ofxKinect.h"
+	"OSCTunnel.h"
 
 1301315739 /home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/src/ofxKinect.h
 	"ofConstants.h"
@@ -1572,12 +1573,12 @@
 1301315739 /home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/src/ofxKinectRecorder.h
 	"ofMain.h"
 
-1301316119 source:/home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/testApp.cpp
+1301318035 source:/home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/testApp.cpp
 	"testApp.h"
 
-1301314644 source:/home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/OSCTunnel.cpp
+1301318060 source:/home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/OSCTunnel.cpp
 	"OSCTunnel.h"
 
-1301315059 /home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/OSCTunnel.h
+1301318053 /home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/OSCTunnel.h
 	<vector>
 

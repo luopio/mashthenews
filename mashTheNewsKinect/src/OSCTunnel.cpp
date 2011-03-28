@@ -9,3 +9,9 @@ OSCTunnel::~OSCTunnel()
 {
     //dtor
 }
+
+void OSCTunnel::sendCoordinates(vector<Coordinate> &coords)
+{
+    return;
+}
+

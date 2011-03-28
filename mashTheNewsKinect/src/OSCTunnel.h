@@ -17,7 +17,7 @@ class OSCTunnel
         OSCTunnel();
         virtual ~OSCTunnel();
 
-        void sendCoordinates(vector<Coordinate> *coords);
+        void sendCoordinates(vector<Coordinate> &coords);
     protected:
     private:
 };

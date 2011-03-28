@@ -13,16 +13,16 @@ void testApp::setup() {
 	grayThresh.allocate(kinect.width, kinect.height);
 	grayThreshFar.allocate(kinect.width, kinect.height);
 	ofSetFrameRate(60);
-    nearThreshold = 170;
-    farThreshold = 30;
+    nearThreshold = 230;
+    farThreshold = 200;
 
 	// zero the tilt on startup
 	kinect.setCameraTiltAngle(0);
+    ofBackground(0, 0, 0);
 }
 
 //--------------------------------------------------------------
 void testApp::update() {
-	ofBackground(100, 100, 0);
 	kinect.update();
 
 	if(kinect.isFrameNew())	{
@@ -48,9 +48,31 @@ void testApp::update() {
 
         grayImage.flagImageChanged();
 
-		// find contours which are between the size of 20 pixels and 1/3 the w*h pixels.
-    	// also, find holes is set to true so we will get interior contours as well....
-    	// contourFinder.findContours(grayImage, 10, (kinect.width*kinect.height)/2, 20, false);
+    	contourFinder.findContours(grayImage, 2000, (kinect.width*kinect.height)/2, 20, false);
+
+    	points.clear();
+
+    	for(int i = 0; i < contourFinder.blobs.size(); i++) {
+            Coordinate tc, c, bc, l, r;
+            ofxCvBlob blob = contourFinder.blobs[i];
+            // top center
+            tc.x = blob.centroid.x;
+            tc.y = blob.boundingRect.y;
+            c.x = blob.centroid.x;
+            c.y = blob.centroid.y;
+            bc.x = blob.centroid.x;
+            bc.y = blob.boundingRect.y + blob.boundingRect.height;
+            l.x = blob.boundingRect.x;
+            l.y = blob.centroid.y;
+            r.x = blob.boundingRect.x + blob.boundingRect.width;
+            r.y = blob.centroid.y;
+            points.push_back(tc);
+            points.push_back(c);
+            points.push_back(bc);
+            points.push_back(l);
+            points.push_back(r);
+    	}
+    	tunnel.sendCoordinates(points);
 	}
 }
 
@@ -58,12 +80,16 @@ void testApp::update() {
 void testApp::draw() {
 	ofSetColor(255, 255, 255);
 
-    kinect.drawDepth(10, 10, 400, 300);
-    kinect.draw(420, 10, 400, 300);
+    // kinect.drawDepth(10, 10, 400, 300);
+    // kinect.draw(420, 10, 400, 300);
 
     grayImage.draw(10, 320, 400, 300);
+    // contourFinder.draw(420, 320, 400, 300);
 
-    // contourFinder.draw(10, 320, 400, 300);
+    for(int i = 0; i < points.size(); i++) {
+        ofSetColor(255, 0, 0);
+        ofCircle(points[i].x, points[i].y, 20);
+    }
 
 	ofSetColor(255, 255, 255);
 	ofDrawBitmapString(ofToString(nearThreshold) + " - " + ofToString(farThreshold),

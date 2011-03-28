@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "ofxOpenCv.h"
 #include "ofxKinect.h"
+#include "OSCTunnel.h"
 
 class testApp : public ofBaseApp {
 	public:
@@ -29,7 +30,9 @@ class testApp : public ofBaseApp {
 		ofxCvGrayscaleImage 	grayThreshFar;
 		ofxCvContourFinder 	    contourFinder;
 
-		int 				nearThreshold;
-		int					farThreshold;
+        OSCTunnel tunnel;
+        vector<Coordinate> points;
 
+		int nearThreshold;
+		int farThreshold;
 };
