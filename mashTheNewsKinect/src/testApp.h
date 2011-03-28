@@ -23,9 +23,11 @@ class testApp : public ofBaseApp {
 
 		ofxKinect kinect;
 
-		ofxCvColorImage		colorImg;
+		ofxCvColorImage		    colorImg;
 		ofxCvGrayscaleImage 	grayImage;
-		ofxCvContourFinder 	contourFinder;
+		ofxCvGrayscaleImage 	grayThresh;
+		ofxCvGrayscaleImage 	grayThreshFar;
+		ofxCvContourFinder 	    contourFinder;
 
 		int 				nearThreshold;
 		int					farThreshold;

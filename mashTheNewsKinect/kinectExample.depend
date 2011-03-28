@@ -1479,16 +1479,16 @@
 1300948330 /home/lauri/code/of_preRelease_v0062_linux_FAT/apps/addonsExamples/kinect/src/ofxKinect/src/ofxKinectRecorder.h
 	"ofMain.h"
 
-1301304422 source:/home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/main.cpp
+1301315739 source:/home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/main.cpp
 	"testApp.h"
 	"ofAppGlutWindow.h"
 
-1301314241 /home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/testApp.h
+1301316145 /home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/testApp.h
 	"ofMain.h"
 	"ofxOpenCv.h"
 	"ofxKinect.h"
 
-1301304422 /home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/src/ofxKinect.h
+1301315739 /home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/src/ofxKinect.h
 	"ofConstants.h"
 	"ofTexture.h"
 	"ofGraphics.h"
@@ -1499,34 +1499,34 @@
 	"libfreenect.h"
 	"ofxKinectCalibration.h"
 
-1301304422 /home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/src/ofxBase3DVideo.h
+1301315739 /home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/src/ofxBase3DVideo.h
 
-1301304422 /home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/libs/libfreenect/libfreenect.h
+1301315739 /home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/libs/libfreenect/libfreenect.h
 	<stdint.h>
 	<libusb-1.0/libusb.h>
 
-1301304422 /home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/src/ofxKinectCalibration.h
+1301315739 /home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/src/ofxKinectCalibration.h
 	"ofMain.h"
 	"ofxVectorMath.h"
 
-1301304422 source:/home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/libs/libfreenect/cameras.c
+1301315739 source:/home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/libs/libfreenect/cameras.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<unistd.h>
 	"freenect_internal.h"
 
-1301304422 /home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/libs/libfreenect/freenect_internal.h
+1301315739 /home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/libs/libfreenect/freenect_internal.h
 	<stdint.h>
 	"libfreenect.h"
 	"usb_libusb10.h"
 	<stdarg.h>
 	<stdio.h>
 
-1301304422 /home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/libs/libfreenect/usb_libusb10.h
+1301315739 /home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/libs/libfreenect/usb_libusb10.h
 	<libusb-1.0/libusb.h>
 
-1301304422 source:/home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/libs/libfreenect/core.c
+1301315739 source:/home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/libs/libfreenect/core.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -1534,7 +1534,7 @@
 	<unistd.h>
 	"freenect_internal.h"
 
-1301304422 source:/home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/libs/libfreenect/tilt.c
+1301315739 source:/home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/libs/libfreenect/tilt.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -1542,7 +1542,7 @@
 	<math.h>
 	"freenect_internal.h"
 
-1301304422 source:/home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/libs/libfreenect/usb_libusb10.c
+1301315739 source:/home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/libs/libfreenect/usb_libusb10.c
 	<stdio.h>
 	<stdbool.h>
 	<stdlib.h>
@@ -1550,28 +1550,34 @@
 	<libusb-1.0/libusb.h>
 	"freenect_internal.h"
 
-1301304422 source:/home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/src/ofxKinect.cpp
+1301315739 source:/home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/src/ofxKinect.cpp
 	"ofxKinect.h"
 	"ofMain.h"
 
-1301304422 source:/home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/src/ofxKinectCalibration.cpp
+1301315739 source:/home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/src/ofxKinectCalibration.cpp
 	"ofxKinectCalibration.h"
 
-1301304422 source:/home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/src/ofxKinectPlayer.cpp
+1301315739 source:/home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/src/ofxKinectPlayer.cpp
 	"ofxKinectPlayer.h"
 
-1301304422 /home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/src/ofxKinectPlayer.h
+1301315739 /home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/src/ofxKinectPlayer.h
 	"ofMain.h"
 	"ofxBase3DVideo.h"
 	"ofxVectorMath.h"
 	"ofxKinectCalibration.h"
 
-1301304422 source:/home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/src/ofxKinectRecorder.cpp
+1301315739 source:/home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/src/ofxKinectRecorder.cpp
 	"ofxKinectRecorder.h"
 
-1301304422 /home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/src/ofxKinectRecorder.h
+1301315739 /home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/ofxKinect/src/ofxKinectRecorder.h
 	"ofMain.h"
 
-1301314559 source:/home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/testApp.cpp
+1301316119 source:/home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/testApp.cpp
 	"testApp.h"
+
+1301314644 source:/home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/OSCTunnel.cpp
+	"OSCTunnel.h"
+
+1301315059 /home/lauri/code/of_preRelease_v0062_linux_FAT/apps/myApps/mashTheNewsKinect/src/OSCTunnel.h
+	<vector>
 
