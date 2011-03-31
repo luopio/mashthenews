@@ -1,5 +1,7 @@
 #include "testApp.h"
+#include "ofMain.h"
 
+using namespace std;
 
 //--------------------------------------------------------------
 void testApp::setup() {
@@ -19,6 +21,23 @@ void testApp::setup() {
 	// zero the tilt on startup
 	kinect.setCameraTiltAngle(0);
     ofBackground(0, 0, 0);
+
+    //sender.setup( HOST, PORT );
+
+    tunnel.sendTestMessage();
+    vector<Coordinate> v;
+
+    Coordinate c;
+    c.x = 120;
+    c.y = 230;
+    c.z = 250;
+
+    v.push_back(c);
+
+    tunnel.sendAttractionPoints(v);
+
+    //cout << "halleluja!" << endl;
+
 }
 
 //--------------------------------------------------------------
@@ -56,23 +75,29 @@ void testApp::update() {
             Coordinate tc, c, bc, l, r;
             ofxCvBlob blob = contourFinder.blobs[i];
             // top center
-            tc.x = blob.centroid.x;
-            tc.y = blob.boundingRect.y;
-            c.x = blob.centroid.x;
-            c.y = blob.centroid.y;
-            bc.x = blob.centroid.x;
-            bc.y = blob.boundingRect.y + blob.boundingRect.height;
-            l.x = blob.boundingRect.x;
-            l.y = blob.centroid.y;
-            r.x = blob.boundingRect.x + blob.boundingRect.width;
-            r.y = blob.centroid.y;
+            tc.x = blob.centroid.x*1.0/grayImage.width;
+            tc.y = blob.boundingRect.y*1.0/grayImage.height;
+
+            tc.z = 0;//(int)grayImage.getPixels()[blob.centroid.x+(int)(blob.centroid.y*grayImage.width)];
+            c.x = blob.centroid.x*1.0/grayImage.width;
+            c.y = blob.centroid.y*1.0/grayImage.height;
+            c.z = 0;
+            bc.x = blob.centroid.x*1.0/grayImage.width;
+            bc.y = (blob.boundingRect.y + blob.boundingRect.height)*1.0/grayImage.height;
+            bc.z = 0;
+            l.x = blob.boundingRect.x*1.0/grayImage.width;
+            l.y = blob.centroid.y*1.0/grayImage.height;
+            l.z = 0;
+            r.x = (blob.boundingRect.x + blob.boundingRect.width)*1.0/grayImage.width;
+            r.y = blob.centroid.y*1.0/grayImage.height;
+            r.z = 0;
             points.push_back(tc);
             points.push_back(c);
             points.push_back(bc);
             points.push_back(l);
             points.push_back(r);
     	}
-    	tunnel.sendCoordinates(points);
+    	tunnel.sendAttractionPoints(points);
 	}
 }
 
@@ -88,7 +113,8 @@ void testApp::draw() {
 
     for(int i = 0; i < points.size(); i++) {
         ofSetColor(255, 0, 0);
-        ofCircle(points[i].x, points[i].y, 20);
+        //ofCircle(points[i].x, points[i].y, 20);
+        ofCircle(points[i].x*grayImage.width, points[i].y*grayImage.height, 20);
     }
 
 	ofSetColor(255, 255, 255);

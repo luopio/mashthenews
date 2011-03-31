@@ -4,6 +4,10 @@
 #include "ofxOpenCv.h"
 #include "ofxKinect.h"
 #include "OSCTunnel.h"
+#include "ofxOsc.h"
+
+#define HOST "192.168.10.12"
+#define PORT 12000
 
 class testApp : public ofBaseApp {
 	public:
@@ -35,4 +39,7 @@ class testApp : public ofBaseApp {
 
 		int nearThreshold;
 		int farThreshold;
+
+    private:
+        //ofxOscSender sender;
 };
