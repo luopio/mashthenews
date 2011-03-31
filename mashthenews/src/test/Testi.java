@@ -1,7 +1,5 @@
 package test;
 import java.io.BufferedReader;
-import processing.net.*;
-import processing.serial.*;
 import java.util.ArrayList;
 //import java.util.TreeMap;
 
