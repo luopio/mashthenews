@@ -10,7 +10,7 @@ public class Testi extends PApplet {
 	}
 	
 	public void draw() {
-		println("hello");
+		println("hello666");
 		delay(2000);
 	}
 	
