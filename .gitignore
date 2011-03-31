@@ -2,4 +2,5 @@
 *.o
 *.d
 *.py[c|o]
-bin/*
+mashthenews/bin/*
+.*
