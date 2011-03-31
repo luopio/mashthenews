@@ -74,7 +74,7 @@ public class Paradise extends PApplet implements OSCListener {
 		world.step(1.0f/60, 6);
 		
 		for(int i = 0; i < letters.length; i++) {
-			//letters[i].addAttraction(new Vec2(0, 0));
+			letters[i].addAttraction(new Vec2(0, 0));
 			letters[i].draw();
 		}
 		// make stuff float around randomly for now

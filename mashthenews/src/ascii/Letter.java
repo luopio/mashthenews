@@ -59,8 +59,10 @@ public class Letter {
 		
         //b2Vec2 D = P - body->GetPosition();
         Vec2 D = P;
-        D.sub(body.getPosition()); // Tämä rivi ei tee mitään, minkä todistaa alla oleva println!!!
-        PApplet.println(D + " " + P);
+        //D.sub(body.getPosition()); // Tämä rivi ei tee mitään, minkä todistaa alla oleva println!!!
+        D.x = D.x - body.getPosition().x;
+        D.y = D.y - body.getPosition().y;
+        //PApplet.println(D + " " + P + " " + body.getPosition());
 
         P.normalize();
         Vec2 F = D.mul(2.5f);
