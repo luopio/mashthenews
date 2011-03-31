@@ -45,4 +45,10 @@ public class Letter {
 		float pixelY = (int)pos.y * this.parent.scale.y;
 		parent.text(letter, (int)pixelX, (int)pixelY);
 	}
+	
+	void addAttraction(Vec2 attractionPoint) {
+		Vec2 pos = body.getPosition();
+		Vec2 rndForce = new Vec2(parent.random(-1.5f, 1.5f), parent.random(-1.5f, 1.5f));
+		body.applyForce(rndForce, new Vec2(50, 10));
+	}
 }

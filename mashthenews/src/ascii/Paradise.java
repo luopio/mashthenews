@@ -3,10 +3,7 @@ package ascii;
 import processing.core.*;
 
 import org.jbox2d.collision.AABB;
-import org.jbox2d.collision.PolygonDef;
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Body;
-import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.World;
 
 public class Paradise extends PApplet {
@@ -27,7 +24,7 @@ public class Paradise extends PApplet {
 		aabb.lowerBound = new Vec2(0.0f, 0.0f);
 		aabb.upperBound = new Vec2(COLUMNS, ROWS);
 		
-		Vec2 gravity = new Vec2(0.0f, 0.1f);
+		Vec2 gravity = new Vec2(0.0f, 0.0f);
 		world = new World(aabb, gravity, true);
 		world.setContinuousPhysics(true);
 		
@@ -63,12 +60,14 @@ public class Paradise extends PApplet {
 	
 	public void draw() {
 		background(0, 0, 0);
-		world.step(1.0f/60, 10);
+		world.step(1.0f/60, 6);
 		
 		for(int i = 0; i < letters.length; i++) {
+			letters[i].addAttraction(new Vec2(0, 0));
 			letters[i].draw();
 		}
-		world.setGravity( new Vec2(random(-10.5f, 10.5f), random(-10.5f, 10.5f)) );
+		// make stuff float around randomly for now
+		// world.setGravity( new Vec2(random(-10.5f, 10.5f), random(-10.5f, 10.5f)) );
 	}
 	
 	public static void main(String args[]) {
