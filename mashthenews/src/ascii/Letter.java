@@ -47,8 +47,28 @@ public class Letter {
 	}
 	
 	void addAttraction(Vec2 attractionPoint) {
-		Vec2 pos = body.getPosition();
+		//Vec2 pos = body.getPosition();
+		//Vec2 point = new Vec2(parent.mouseX / this.parent.scale.x, parent.mouseY / this.parent.scale.y);
+		//Vec2 force = pos;
+
+		//b2Vec2 P(pt.x/OFX_BOX2D_SCALE, pt.y/OFX_BOX2D_SCALE);
+		// virhe on luultavasti tassa 
+		Vec2 P = new Vec2(parent.mouseX / this.parent.scale.x, parent.mouseY / this.parent.scale.y);
+		
+        //b2Vec2 D = P - body->GetPosition();
+        Vec2 D = P;
+        D.sub(body.getPosition());
+
+        P.normalize();
+        Vec2 F = D.mul(2.5f);
+        body.applyForce(F, P);
+        
+        /*P.Normalize();
+        b2Vec2 F = amt * D;
+        body->ApplyForce(F, P);*/
+		
+        /*force.sub(point);
 		Vec2 rndForce = new Vec2(parent.random(-1.5f, 1.5f), parent.random(-1.5f, 1.5f));
-		body.applyForce(rndForce, new Vec2(50, 10));
+		body.applyForce(force, pos);*/
 	}
 }
