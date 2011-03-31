@@ -59,8 +59,13 @@ public class Testi extends PApplet {
 		myPort = new Serial(this, portname, 115200);
 		println("set up");	  
 	}
+
 	 
-	public void draw() {	 
+	
+	public void draw() {
+		println("hello666");
+		delay(2000);
+
 	}
 	
 	public void oscEvent(OscMessage theOscMessage) {

@@ -1,0 +1,5 @@
+*.class
+*.o
+*.d
+*.py[c|o]
+bin/*
