@@ -1,0 +1,41 @@
+8
+
+dir
+134
+https://jbox2d.svn.sourceforge.net/svnroot/jbox2d/trunk/src/org/jbox2d/p5/doc/resources
+https://jbox2d.svn.sourceforge.net/svnroot/jbox2d
+
+
+
+2008-06-12T20:57:26.293734Z
+134
+ewjordan
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+6f22cd85-313b-0410-a2db-fd6cdd1a72a6
+
+inherit.gif
+file
+
+
+
+
+2008-06-12T18:07:55.000000Z
+220f4eda0bd49915699315f18b8b03cf
+2008-06-12T20:57:26.293734Z
+134
+ewjordan
+has-props
+
