@@ -15,6 +15,7 @@ public class Paradise extends PApplet {
 	
 	AABB aabb;
 	World world;
+	PFont font;
 	
 	public void setup() {
 		// box2D stuff
@@ -53,6 +54,8 @@ public class Paradise extends PApplet {
 			letters[i] = new Letter(this, rndChar, c, r);
 		}
 		
+		font = this.loadFont("Arcade-30.vlw");
+		textFont(font);
 		size(w, h);
 	}
 	

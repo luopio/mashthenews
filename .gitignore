@@ -1,6 +1,6 @@
 *.class
+*.applet
 *.o
 *.d
 *.py[c|o]
-mashthenews/bin/*
 .*
