@@ -7,6 +7,8 @@ import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.World;
 
+import processing.core.PApplet;
+
 public class Letter {
 	
 	private PolygonDef polygonDef;
@@ -52,12 +54,15 @@ public class Letter {
 		//Vec2 force = pos;
 
 		//b2Vec2 P(pt.x/OFX_BOX2D_SCALE, pt.y/OFX_BOX2D_SCALE);
-		// virhe on luultavasti tassa 
-		Vec2 P = new Vec2(parent.mouseX / this.parent.scale.x, parent.mouseY / this.parent.scale.y);
+		// EDIT: // Gyl täi nyt toimii, sanoisin, hiiren arvot menee kolumni/rivi-akselille...
+		Vec2 P = new Vec2(parent.mouseX / this.parent.scale.x, parent.mouseY / this.parent.scale.y); 
 		
         //b2Vec2 D = P - body->GetPosition();
         Vec2 D = P;
-        D.sub(body.getPosition());
+        //D.sub(body.getPosition()); // Tämä rivi ei tee mitään, minkä todistaa alla oleva println!!!
+        D.x = D.x - body.getPosition().x;
+        D.y = D.y - body.getPosition().y;
+        //PApplet.println(D + " " + P + " " + body.getPosition());
 
         P.normalize();
         Vec2 F = D.mul(2.5f);

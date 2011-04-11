@@ -9,6 +9,10 @@ import oscP5.OscP5;
 import oscP5.OscStatus;
 import processing.core.PApplet;
 
+/**
+ * @author jarse
+ *
+ */
 public class OSCReceiver implements OscEventListener {
 
 	private class OSCListenerSlot {
@@ -39,6 +43,11 @@ public class OSCReceiver implements OscEventListener {
 		oscListeners = new LinkedList<OSCListenerSlot>();
 	}
 	
+	/**
+	 * Adds OscListener to listen incoming OSC data that contains defined address pattern.
+	 * @param listener to be added
+	 * @param OSC address pattern (usually "/something")
+	 */
 	public void addListener(OSCListener l, String addressPattern) {
 		oscListeners.add(new OSCListenerSlot(addressPattern,l));
 	}
