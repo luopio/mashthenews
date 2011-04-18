@@ -97,6 +97,8 @@ public class Paradise extends PApplet implements OSCListener {
 		
 		font = this.loadFont("Arcade-48.vlw");
 		textFont(font);
+		textAlign(LEFT,CENTER);
+		noCursor();
 		size(w, h);
 
 		oscReceiver = new OSCReceiver(7000);
@@ -110,7 +112,14 @@ public class Paradise extends PApplet implements OSCListener {
 		world.step(1.0f/60, 6);
 		
 		for(int i = 0; i < letters.length; i++) {
-			letters[i].addAttraction(new Vec2(mouseX, mouseY));
+			Vec2 mousePos = new Vec2((int)((float)mouseX/width*COLUMNS), (int)((float)mouseY/height*ROWS));
+			new Vec2(2,2);
+			//println(mousePos);
+			letters[i].addAttraction(mousePos);
+			synchronized(attractionPoints) {
+				attractionPoints.add(mousePos);
+			}
+			letters[i].addAttraction(mousePos);
 			letters[i].draw();
 		}
 		// make stuff float around randomly for now
@@ -148,7 +157,7 @@ public class Paradise extends PApplet implements OSCListener {
 			synchronized(attractionPoints) {
 				Vec2 val = new Vec2((int)(m.get(0).floatValue()*COLUMNS),(int)(m.get(1).floatValue()*ROWS));
 				println(val);
-				attractionPoints.add(val);
+				//attractionPoints.add(val);
 			}
 			for (int i=0; i < letters.length; i++) { 
 				letters[i].addAttraction(new Vec2(m.get(0).floatValue()*COLUMNS,m.get(1).floatValue()*ROWS));
