@@ -55,18 +55,27 @@ public class Letter {
 
 		//b2Vec2 P(pt.x/OFX_BOX2D_SCALE, pt.y/OFX_BOX2D_SCALE);
 		// EDIT: // Gyl täi nyt toimii, sanoisin, hiiren arvot menee kolumni/rivi-akselille...
-		Vec2 P = new Vec2(	parent.mouseX / this.parent.scale.x, 
-							parent.mouseY / this.parent.scale.y); 
+		//Vec2 P = new Vec2(	parent.mouseX / this.parent.scale.x, 
+		//					parent.mouseY / this.parent.scale.y); 
 		
+		Vec2 P = new Vec2(	attractionPoint.x / this.parent.scale.x, 
+							attractionPoint.y / this.parent.scale.y); 
+
         //b2Vec2 D = P - body->GetPosition();
         Vec2 D = P;
         //D.sub(body.getPosition()); // Tämä rivi ei tee mitään, minkä todistaa alla oleva println!!!
         D.x = D.x - body.getPosition().x;
         D.y = D.y - body.getPosition().y;
         //PApplet.println(D + " " + P + " " + body.getPosition());
-
+        
+        float xdis = body.getPosition().x - attractionPoint.x;
+        float ydis = body.getPosition().y - attractionPoint.y;
         P.normalize();
-        Vec2 F = D.mul(3.5f);
+        
+        double distance = Math.sqrt(xdis * xdis + ydis * ydis); 
+        Vec2 F = D.mul((float)(distance / 40.0));
+        // PApplet.println(distance);
+        
         // body.applyForce(F, P);
         body.setLinearVelocity(F);
         

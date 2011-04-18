@@ -110,7 +110,7 @@ public class Paradise extends PApplet implements OSCListener {
 		world.step(1.0f/60, 6);
 		
 		for(int i = 0; i < letters.length; i++) {
-			letters[i].addAttraction(new Vec2(0, 0));
+			letters[i].addAttraction(new Vec2(mouseX, mouseY));
 			letters[i].draw();
 		}
 		// make stuff float around randomly for now
@@ -131,6 +131,12 @@ public class Paradise extends PApplet implements OSCListener {
 	
 	public static void main(String args[]) {
 		PApplet.main(new String[] { "--present", "ascii.Paradise" });
+	}
+	
+	public void attractAll(Vec2 point) {
+		for (int i=0; i < letters.length; i++) { 
+			letters[i].addAttraction(point);
+		}
 	}
 
 	@Override
