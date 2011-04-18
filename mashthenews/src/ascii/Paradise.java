@@ -10,8 +10,8 @@ import oscP5.OscMessage;
 
 public class Paradise extends PApplet implements OSCListener {
 
-	public static int COLUMNS = 80;
-	public static int ROWS = 60;
+	public static int COLUMNS = 60;
+	public static int ROWS = 40;
 	Letter letters[];
 	Vec2 scale;
 	
@@ -63,7 +63,7 @@ public class Paradise extends PApplet implements OSCListener {
 			letters[i] = new Letter(this, rndChar, c, r);
 		}
 		
-		font = this.loadFont("Arcade-30.vlw");
+		font = this.loadFont("Arcade-48.vlw");
 		textFont(font);
 		size(w, h);
 
