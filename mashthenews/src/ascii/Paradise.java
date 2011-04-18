@@ -85,7 +85,7 @@ public class Paradise extends PApplet implements OSCListener {
 		font = this.loadFont("Arcade-48.vlw");
 		textFont(font);
 		textAlign(LEFT,CENTER);
-		noCursor();
+		//noCursor();
 		size(w, h);
 
 		oscReceiver = new OSCReceiver(7000);
@@ -142,14 +142,15 @@ public class Paradise extends PApplet implements OSCListener {
 		if (m.arguments().length!=3) {
 			PApplet.println("/attractionpoint received but the number of arguments was " + m.arguments().length + " should have been 3!");
 		} else {
+			Vec2 val = new Vec2((int)(m.get(0).floatValue()*COLUMNS),(int)(m.get(1).floatValue()*ROWS));
 			//println("" + attractionPoints.size());
 			synchronized(attractionPoints) {
-				Vec2 val = new Vec2((int)(m.get(0).floatValue()*COLUMNS),(int)(m.get(1).floatValue()*ROWS));
-				println(val);
-				//attractionPoints.add(val);
+				
+				//println(val);
+				attractionPoints.add(val);
 			}
-			for (int i=0; i < letters.length; i++) { 
-				words[i].addAttraction(new Vec2(m.get(0).floatValue()*COLUMNS,m.get(1).floatValue()*ROWS));
+			for (int i=0; i < words.length; i++) { 
+				words[i].addAttraction(val);
 			}
 		}
 	}

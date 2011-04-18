@@ -49,9 +49,14 @@ public class Letter {
 		Vec2 pos = body.getPosition();
 		float pixelX = (int)pos.x * this.parent.scale.x;
 		float pixelY = (int)pos.y * this.parent.scale.y;
+		//PApplet.println(pixelX + " " + pixelY);
 		parent.text(letter, (int)pixelX, (int)pixelY);
 	}
 	
+	/**
+	 * 
+	 * @param attractionPoint - in COLUMNS/ROWS space
+	 */
 	void addAttraction(Vec2 attractionPoint) {
 		//Vec2 pos = body.getPosition();
 		//Vec2 point = new Vec2(parent.mouseX / this.parent.scale.x, parent.mouseY / this.parent.scale.y);
@@ -62,8 +67,9 @@ public class Letter {
 		//Vec2 P = new Vec2(	parent.mouseX / this.parent.scale.x, 
 		//					parent.mouseY / this.parent.scale.y); 
 		
-		Vec2 P = new Vec2(	attractionPoint.x , 
-							attractionPoint.y ); 
+		Vec2 P = new Vec2(	(float)attractionPoint.x , 
+							(float)attractionPoint.y ); 
+		//PApplet.println(attractionPoint);
 
         //b2Vec2 D = P - body->GetPosition();
         Vec2 D = P;
