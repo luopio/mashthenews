@@ -1,7 +1,7 @@
 package ascii;
 
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.joints.JointDef;
+import org.jbox2d.dynamics.joints.DistanceJointDef;
 
 public class Word {
 	Letter[] letters;
@@ -16,13 +16,15 @@ public class Word {
 		Letter prevLetter = null;
 		for(int i = 0; i < word.length(); i++) {
 			char rndChar = word.charAt(i);
-			letters[i] = new Letter(parent, rndChar, column + i, row);
+			letters[i] = new Letter(parent, rndChar, column + i * 2, row);
 			if(prevLetter != null) {
-				// JointDef j = new JointDef();
-				
+				DistanceJointDef j = new DistanceJointDef();
+				j.initialize(	prevLetter.body, letters[i].body, 
+								prevLetter.body.getWorldCenter(), letters[i].body.getWorldCenter());
 				// j.body1 = prevLetter.body;
 				// j.body2 = letters[i].body;
-				// parent.world.createJoint(j);
+				
+				parent.world.createJoint(j);
 			}
 			prevLetter = letters[i];
 		}
