@@ -19,6 +19,20 @@ public class Paradise extends PApplet implements OSCListener {
 	World world;
 	PFont font;
 	
+	String sw = "                       /~\\    " + 
+				"                      |oo )   " +                          
+				"                       \\=/_   " +                          
+				"       ___            /  _  \\  " +         
+				"     / ()\\          //|/.\\|\\\\ " +                       
+                "   _|_____|_        \\ \\_\\/  ||" +                       
+                "  | | === | |        \\|\\ /| ||" +                       
+                "  |_|  O  |_|        # _ _/ # " +                       
+                "   ||  O  ||          | | |   " +                       
+                "   ||__*__||          | | |   " +                        
+                "  |~ \\___/ ~|         []|[]   " +                         
+                "  /=\\ /=\\ /=\\         | | |   " +                         
+                "  [_]_[_]_[_]________/_]_[_\\  ";
+	
 	private OSCReceiver oscReceiver;
 	
 	public void setup() {
@@ -54,20 +68,33 @@ public class Paradise extends PApplet implements OSCListener {
 		scale.x = w/COLUMNS;
 		scale.y = h/ROWS;
 		
-		letters = new Letter[25];
+		letters = new Letter[25];//+sw.length()+2];
 		String alphabet = "abcdefghijklmnopqrstuvwxyz";
 		for(int i = 0; i < letters.length; i++) {
 			char rndChar = alphabet.charAt( (int)random(alphabet.length()) );
 			float r = random(ROWS);
 			float c = random(COLUMNS);
-			letters[i] = new Letter(this, rndChar, c, r);
+			//letters[i] = new Letter(this, rndChar, c, r);
+			letters[i] = new Letter(this, (char)59, c, r);
 		}
+		/*float r = 0;
+		float c = 0;
+		for (int i = 0; i < sw.length()/2;i++) {
+			if (sw.charAt(i)=='\n') {
+				r++;
+				c = 0;
+			}
+			letters[25+i] = new Letter(this, sw.charAt(i),r, c);
+			println(sw.charAt(i));
+			c++;
+		}*/
 		
 		font = this.loadFont("Arcade-30.vlw");
 		textFont(font);
 		size(w, h);
 
 		oscReceiver = new OSCReceiver(7000);
+		//oscReceiver.addListener(this, "/attractionpoint");
 	}
 	
 	public World getWorld() { return world; }
@@ -89,7 +116,7 @@ public class Paradise extends PApplet implements OSCListener {
 	}
 	
 	public static void main(String args[]) {
-		PApplet.main(new String[] { "--present", "Jaegermaister" });
+		PApplet.main(new String[] { "--present", "ascii.Paradise" });
 	}
 
 	@Override
