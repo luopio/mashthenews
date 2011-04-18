@@ -1,5 +1,9 @@
 package ascii;
 
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
 import processing.core.*;
 
 import org.jbox2d.collision.AABB;
@@ -34,6 +38,8 @@ public class Paradise extends PApplet implements OSCListener {
                 "  [_]_[_]_[_]________/_]_[_\\  ";
 	
 	private OSCReceiver oscReceiver;
+	
+	private List<Vec2> attractionPoints = Collections.synchronizedList(new LinkedList<Vec2>());
 	
 	public void setup() {
 		size(800, 600);
@@ -74,8 +80,8 @@ public class Paradise extends PApplet implements OSCListener {
 			char rndChar = alphabet.charAt( (int)random(alphabet.length()) );
 			float r = random(ROWS);
 			float c = random(COLUMNS);
-			//letters[i] = new Letter(this, rndChar, c, r);
-			letters[i] = new Letter(this, (char)59, c, r);
+			letters[i] = new Letter(this, rndChar, c, r);
+			//letters[i] = new Letter(this, (char)59, c, r);
 		}
 		/*float r = 0;
 		float c = 0;
@@ -94,7 +100,7 @@ public class Paradise extends PApplet implements OSCListener {
 		size(w, h);
 
 		oscReceiver = new OSCReceiver(7000);
-		//oscReceiver.addListener(this, "/attractionpoint");
+		oscReceiver.addListener(this, "/attractionpoint");
 	}
 	
 	public World getWorld() { return world; }
@@ -109,6 +115,14 @@ public class Paradise extends PApplet implements OSCListener {
 		}
 		// make stuff float around randomly for now
 		// world.setGravity( new Vec2(random(-10.5f, 10.5f), random(-10.5f, 10.5f)) );
+		LinkedList<Vec2> soonToBeRemoved = new LinkedList<Vec2>(); 
+		synchronized(attractionPoints) {
+			for (Vec2 v : attractionPoints) {
+				text("X", (int)v.x*scale.x, (int)v.y*scale.y);
+				soonToBeRemoved.add(v);
+			}
+			attractionPoints.removeAll(soonToBeRemoved);
+		}
 	}
 	
 	public Letter[] getLetters() {
@@ -124,6 +138,12 @@ public class Paradise extends PApplet implements OSCListener {
 		if (m.arguments().length!=3) {
 			PApplet.println("/attractionpoint received but the number of arguments was " + m.arguments().length + " should have been 3!");
 		} else {
+			//println("" + attractionPoints.size());
+			synchronized(attractionPoints) {
+				Vec2 val = new Vec2((int)(m.get(0).floatValue()*COLUMNS),(int)(m.get(1).floatValue()*ROWS));
+				println(val);
+				attractionPoints.add(val);
+			}
 			for (int i=0; i < letters.length; i++) { 
 				letters[i].addAttraction(new Vec2(m.get(0).floatValue()*COLUMNS,m.get(1).floatValue()*ROWS));
 			}
