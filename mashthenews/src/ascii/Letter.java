@@ -11,12 +11,14 @@ import processing.core.PApplet;
 
 public class Letter {
 	
-	private PolygonDef polygonDef;
-	private BodyDef bodyDef;
-	private Body body;
+	public PolygonDef polygonDef;
+	public BodyDef bodyDef;
+	public Body body;
 
 	Paradise parent;
 	char letter;
+	
+	float distanceScaler = (float)0.03;
 	
 	public Letter(Paradise parent, char letter) {
 		this(parent, letter, 0, 0);
@@ -83,7 +85,7 @@ public class Letter {
         P.normalize();
         
         double distance = Math.sqrt(xdis * xdis + ydis * ydis); 
-        Vec2 F = D.mul((float)(distance / 40.0));
+        Vec2 F = D.mul((float)(distance / distanceScaler));
         // PApplet.println(distance);
         
         // body.applyForce(F, P);
