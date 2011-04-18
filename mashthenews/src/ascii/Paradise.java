@@ -10,9 +10,8 @@ import oscP5.OscMessage;
 
 public class Paradise extends PApplet implements OSCListener {
 
-	public static int COLUMNS = 60;
-	public static int ROWS = 40;
-	Letter letters[];
+	public static int COLUMNS = 50;
+	public static int ROWS = 30;
 	Word words[];
 	Vec2 scale;
 	
@@ -56,11 +55,11 @@ public class Paradise extends PApplet implements OSCListener {
 		scale.y = h/ROWS;
 		
 		words = new Word[5];
-		words[0] = new Word(this, "mummo", (int)random(ROWS), (int)random(COLUMNS));
-		words[1] = new Word(this, "hanke", (int)random(ROWS), (int)random(COLUMNS));
-		words[2] = new Word(this, "value", (int)random(ROWS), (int)random(COLUMNS));
-		words[3] = new Word(this, "kastanja", (int)random(ROWS), (int)random(COLUMNS));
-		words[4] = new Word(this, "perus", (int)random(ROWS), (int)random(COLUMNS));
+		words[0] = new Word(this, "mummo", 		(int)random(ROWS), (int)random(COLUMNS));
+		words[1] = new Word(this, "hanke", 		(int)random(ROWS), (int)random(COLUMNS));
+		words[2] = new Word(this, "value", 		(int)random(ROWS), (int)random(COLUMNS));
+		words[3] = new Word(this, "kastanja", 	(int)random(ROWS), (int)random(COLUMNS));
+		words[4] = new Word(this, "perus", 		(int)random(ROWS), (int)random(COLUMNS));
 		
 		
 		font = this.loadFont("Arcade-48.vlw");
@@ -84,11 +83,7 @@ public class Paradise extends PApplet implements OSCListener {
 		// world.setGravity( new Vec2(random(-10.5f, 10.5f), random(-10.5f, 10.5f)) );
 	}
 	
-	public Letter[] getLetters() {
-		return letters;
-	}
-
-	public Letter[] getWords() {
+	public Word[] getWords() {
 		return words;
 	}	
 
@@ -107,7 +102,7 @@ public class Paradise extends PApplet implements OSCListener {
 		if (m.arguments().length!=3) {
 			PApplet.println("/attractionpoint received but the number of arguments was " + m.arguments().length + " should have been 3!");
 		} else {
-			for (int i=0; i < letters.length; i++) { 
+			for (int i=0; i < words.length; i++) { 
 				words[i].addAttraction(new Vec2(m.get(0).floatValue()*COLUMNS,m.get(1).floatValue()*ROWS));
 			}
 		}

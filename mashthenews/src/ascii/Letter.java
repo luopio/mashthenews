@@ -11,9 +11,9 @@ import processing.core.PApplet;
 
 public class Letter {
 	
-	private PolygonDef polygonDef;
-	private BodyDef bodyDef;
-	private Body body;
+	public PolygonDef polygonDef;
+	public BodyDef bodyDef;
+	public Body body;
 
 	Paradise parent;
 	char letter;
