@@ -4,7 +4,7 @@
 #include <vector>
 #include "ofxOsc.h"
 
-#define HOST "192.168.10.12"
+#define HOST "192.168.10.14"
 #define PORT 7000
 
 using namespace std;

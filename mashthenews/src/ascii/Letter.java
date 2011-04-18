@@ -36,6 +36,7 @@ public class Letter {
   
 		bodyDef = new BodyDef();
 		bodyDef.position.set(x, y);
+		bodyDef.linearDamping = 1.0f;
 		
 		body = parent.getWorld().createBody(bodyDef);
 		body.createShape(polygonDef);
@@ -86,10 +87,11 @@ public class Letter {
         
         double distance = Math.sqrt(xdis * xdis + ydis * ydis); 
         Vec2 F = D.mul((float)(distance / distanceScaler));
+
         // PApplet.println(distance);
         
-        // body.applyForce(F, P);
-        body.setLinearVelocity(F);
+        body.applyForce(F, P);
+        // body.setLinearVelocity(F);
         
         /*P.Normalize();
         b2Vec2 F = amt * D;

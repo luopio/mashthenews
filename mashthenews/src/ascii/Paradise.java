@@ -42,8 +42,8 @@ public class Paradise extends PApplet implements OSCListener {
 	private List<Vec2> attractionPoints = Collections.synchronizedList(new LinkedList<Vec2>());
 	
 	public void setup() {
-		size(800, 600);
-		int w = 800; int h = 600;
+		//size(800, 600);
+		int w = 1280; int h = 800;
 		
 		background(0,0,0);
 		
@@ -107,7 +107,7 @@ public class Paradise extends PApplet implements OSCListener {
 				}
 			}
 			for(int i = 0; i < words.length; i++) {	
-				//words[i].addAttraction(mousePos);
+				words[i].addAttraction(mousePos);
 				words[i].draw();
 			}
 		}
@@ -133,7 +133,11 @@ public class Paradise extends PApplet implements OSCListener {
 		}
 	}
 
-	@Override
+
+	/**
+	 * Processes OSC message contains an array of 3-dimensional coordinates. Always removes old values from memory.
+	 * Meaning that attraction points are used as long as new ones are received.
+	 */
 	public void oscMessageReceived(OscMessage m) {
 		if (m.arguments().length%3!=0) {
 			PApplet.println("/attractionpoint received but the number of arguments was " + m.arguments().length + " should have been 3!");
@@ -145,9 +149,6 @@ public class Paradise extends PApplet implements OSCListener {
 				while (i < m.arguments().length) {
 					Vec2 val = new Vec2((int)(m.get(i).floatValue()*COLUMNS),(int)(m.get(i+1).floatValue()*ROWS));
 					attractionPoints.add(val);
-					//for (int w=0; w < words.length; w++) { 
-					//	words[w].addAttraction(val);
-					//}
 					i += 3;
 				}
 			}
