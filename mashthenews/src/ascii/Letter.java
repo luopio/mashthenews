@@ -55,7 +55,8 @@ public class Letter {
 
 		//b2Vec2 P(pt.x/OFX_BOX2D_SCALE, pt.y/OFX_BOX2D_SCALE);
 		// EDIT: // Gyl täi nyt toimii, sanoisin, hiiren arvot menee kolumni/rivi-akselille...
-		Vec2 P = new Vec2(parent.mouseX / this.parent.scale.x, parent.mouseY / this.parent.scale.y); 
+		Vec2 P = new Vec2(	parent.mouseX / this.parent.scale.x, 
+							parent.mouseY / this.parent.scale.y); 
 		
         //b2Vec2 D = P - body->GetPosition();
         Vec2 D = P;
@@ -65,8 +66,9 @@ public class Letter {
         //PApplet.println(D + " " + P + " " + body.getPosition());
 
         P.normalize();
-        Vec2 F = D.mul(2.5f);
-        body.applyForce(F, P);
+        Vec2 F = D.mul(3.5f);
+        // body.applyForce(F, P);
+        body.setLinearVelocity(F);
         
         /*P.Normalize();
         b2Vec2 F = amt * D;
