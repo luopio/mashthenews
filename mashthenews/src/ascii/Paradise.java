@@ -1,5 +1,9 @@
 package ascii;
 
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
 import processing.core.*;
 
 import org.jbox2d.collision.AABB;
@@ -19,7 +23,23 @@ public class Paradise extends PApplet implements OSCListener {
 	World world;
 	PFont font;
 	
+	String sw = "                       /~\\    " + 
+				"                      |oo )   " +                          
+				"                       \\=/_   " +                          
+				"       ___            /  _  \\  " +         
+				"     / ()\\          //|/.\\|\\\\ " +                       
+                "   _|_____|_        \\ \\_\\/  ||" +                       
+                "  | | === | |        \\|\\ /| ||" +                       
+                "  |_|  O  |_|        # _ _/ # " +                       
+                "   ||  O  ||          | | |   " +                       
+                "   ||__*__||          | | |   " +                        
+                "  |~ \\___/ ~|         []|[]   " +                         
+                "  /=\\ /=\\ /=\\         | | |   " +                         
+                "  [_]_[_]_[_]________/_]_[_\\  ";
+	
 	private OSCReceiver oscReceiver;
+	
+	private List<Vec2> attractionPoints = Collections.synchronizedList(new LinkedList<Vec2>());
 	
 	public void setup() {
 		size(800, 600);
@@ -61,12 +81,14 @@ public class Paradise extends PApplet implements OSCListener {
 		words[3] = new Word(this, "kastanja", 	(int)random(ROWS), (int)random(COLUMNS));
 		words[4] = new Word(this, "perus", 		(int)random(ROWS), (int)random(COLUMNS));
 		
-		
 		font = this.loadFont("Arcade-48.vlw");
 		textFont(font);
+		textAlign(LEFT,CENTER);
+		noCursor();
 		size(w, h);
 
 		oscReceiver = new OSCReceiver(7000);
+		oscReceiver.addListener(this, "/attractionpoint");
 	}
 	
 	public World getWorld() { return world; }
@@ -74,21 +96,35 @@ public class Paradise extends PApplet implements OSCListener {
 	public void draw() {
 		background(0, 0, 0);
 		world.step(1.0f/60, 6);
-		
+		Vec2 mousePos = new Vec2((int)((float)mouseX/width*COLUMNS), (int)((float)mouseY/height*ROWS));
+		synchronized(attractionPoints) {
+			attractionPoints.add(mousePos);
+		}
+
 		for(int i = 0; i < words.length; i++) {
-			words[i].addAttraction(new Vec2(mouseX, mouseY));
+			
+			words[i].addAttraction(mousePos);
 			words[i].draw();
 		}
 		// make stuff float around randomly for now
 		// world.setGravity( new Vec2(random(-10.5f, 10.5f), random(-10.5f, 10.5f)) );
+		LinkedList<Vec2> soonToBeRemoved = new LinkedList<Vec2>(); 
+		synchronized(attractionPoints) {
+			for (Vec2 v : attractionPoints) {
+				text("X", (int)v.x*scale.x, (int)v.y*scale.y);
+				soonToBeRemoved.add(v);
+			}
+			attractionPoints.removeAll(soonToBeRemoved);
+		}
 	}
 	
+
 	public Word[] getWords() {
 		return words;
 	}	
 
 	public static void main(String args[]) {
-		PApplet.main(new String[] { "--present", "Jaegermaister" });
+		PApplet.main(new String[] { "--present", "ascii.Paradise" });
 	}
 	
 	public void attractAll(Vec2 point) {
@@ -102,6 +138,12 @@ public class Paradise extends PApplet implements OSCListener {
 		if (m.arguments().length!=3) {
 			PApplet.println("/attractionpoint received but the number of arguments was " + m.arguments().length + " should have been 3!");
 		} else {
+			//println("" + attractionPoints.size());
+			synchronized(attractionPoints) {
+				Vec2 val = new Vec2((int)(m.get(0).floatValue()*COLUMNS),(int)(m.get(1).floatValue()*ROWS));
+				println(val);
+				//attractionPoints.add(val);
+			}
 			for (int i=0; i < words.length; i++) { 
 				words[i].addAttraction(new Vec2(m.get(0).floatValue()*COLUMNS,m.get(1).floatValue()*ROWS));
 			}

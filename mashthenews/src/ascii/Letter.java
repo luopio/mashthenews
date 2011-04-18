@@ -62,8 +62,8 @@ public class Letter {
 		//Vec2 P = new Vec2(	parent.mouseX / this.parent.scale.x, 
 		//					parent.mouseY / this.parent.scale.y); 
 		
-		Vec2 P = new Vec2(	attractionPoint.x / this.parent.scale.x, 
-							attractionPoint.y / this.parent.scale.y); 
+		Vec2 P = new Vec2(	attractionPoint.x , 
+							attractionPoint.y ); 
 
         //b2Vec2 D = P - body->GetPosition();
         Vec2 D = P;
