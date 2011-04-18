@@ -17,6 +17,7 @@ public class Paradise extends PApplet implements OSCListener {
 	public static int COLUMNS = 60;
 	public static int ROWS = 40;
 	Letter letters[];
+	Word words[];
 	Vec2 scale;
 	
 	AABB aabb;
@@ -74,26 +75,12 @@ public class Paradise extends PApplet implements OSCListener {
 		scale.x = w/COLUMNS;
 		scale.y = h/ROWS;
 		
-		letters = new Letter[25];//+sw.length()+2];
-		String alphabet = "abcdefghijklmnopqrstuvwxyz";
-		for(int i = 0; i < letters.length; i++) {
-			char rndChar = alphabet.charAt( (int)random(alphabet.length()) );
-			float r = random(ROWS);
-			float c = random(COLUMNS);
-			letters[i] = new Letter(this, rndChar, c, r);
-			//letters[i] = new Letter(this, (char)59, c, r);
-		}
-		/*float r = 0;
-		float c = 0;
-		for (int i = 0; i < sw.length()/2;i++) {
-			if (sw.charAt(i)=='\n') {
-				r++;
-				c = 0;
-			}
-			letters[25+i] = new Letter(this, sw.charAt(i),r, c);
-			println(sw.charAt(i));
-			c++;
-		}*/
+		words = new Word[5];
+		words[0] = new Word(this, "mummo", (int)random(ROWS), (int)random(COLUMNS));
+		words[1] = new Word(this, "hanke", (int)random(ROWS), (int)random(COLUMNS));
+		words[2] = new Word(this, "value", (int)random(ROWS), (int)random(COLUMNS));
+		words[3] = new Word(this, "kastanja", (int)random(ROWS), (int)random(COLUMNS));
+		words[4] = new Word(this, "perus", (int)random(ROWS), (int)random(COLUMNS));
 		
 		font = this.loadFont("Arcade-48.vlw");
 		textFont(font);
@@ -110,17 +97,15 @@ public class Paradise extends PApplet implements OSCListener {
 	public void draw() {
 		background(0, 0, 0);
 		world.step(1.0f/60, 6);
-		
-		for(int i = 0; i < letters.length; i++) {
-			Vec2 mousePos = new Vec2((int)((float)mouseX/width*COLUMNS), (int)((float)mouseY/height*ROWS));
-			new Vec2(2,2);
-			//println(mousePos);
-			letters[i].addAttraction(mousePos);
-			synchronized(attractionPoints) {
-				attractionPoints.add(mousePos);
-			}
-			letters[i].addAttraction(mousePos);
-			letters[i].draw();
+		Vec2 mousePos = new Vec2((int)((float)mouseX/width*COLUMNS), (int)((float)mouseY/height*ROWS));
+		synchronized(attractionPoints) {
+			attractionPoints.add(mousePos);
+		}
+
+		for(int i = 0; i < words.length; i++) {
+			
+			words[i].addAttraction(mousePos);
+			words[i].draw();
 		}
 		// make stuff float around randomly for now
 		// world.setGravity( new Vec2(random(-10.5f, 10.5f), random(-10.5f, 10.5f)) );
@@ -137,14 +122,18 @@ public class Paradise extends PApplet implements OSCListener {
 	public Letter[] getLetters() {
 		return letters;
 	}
-	
+
+	public Word[] getWords() {
+		return words;
+	}	
+
 	public static void main(String args[]) {
 		PApplet.main(new String[] { "--present", "ascii.Paradise" });
 	}
 	
 	public void attractAll(Vec2 point) {
-		for (int i=0; i < letters.length; i++) { 
-			letters[i].addAttraction(point);
+		for (int i=0; i < words.length; i++) { 
+			words[i].addAttraction(point);
 		}
 	}
 
@@ -160,7 +149,7 @@ public class Paradise extends PApplet implements OSCListener {
 				//attractionPoints.add(val);
 			}
 			for (int i=0; i < letters.length; i++) { 
-				letters[i].addAttraction(new Vec2(m.get(0).floatValue()*COLUMNS,m.get(1).floatValue()*ROWS));
+				words[i].addAttraction(new Vec2(m.get(0).floatValue()*COLUMNS,m.get(1).floatValue()*ROWS));
 			}
 		}
 	}

@@ -18,6 +18,10 @@ public class Letter {
 	Paradise parent;
 	char letter;
 	
+	public Letter(Paradise parent, char letter) {
+		this(parent, letter, 0, 0);
+	}
+	
 	public Letter(Paradise parent, char letter, float x, float y) {
 		this.parent = parent;
 		this.letter = letter;
