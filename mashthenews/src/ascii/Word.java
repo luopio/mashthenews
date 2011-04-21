@@ -39,6 +39,10 @@ public class Word {
 		lastLetter = letters[letters.length - 1];
 	}
 	
+	/**
+	 * 
+	 * @param point - Coordinates in ROWS/COLUMNS - notation
+	 */
 	public void addAttraction(Vec2 point) {
 		//for(int i = 0; i < letters.length; i++) {
 		// 	letters[i].addAttraction(point);

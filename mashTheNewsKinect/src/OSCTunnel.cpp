@@ -27,14 +27,14 @@ void OSCTunnel::sendCoordinates(vector<Coordinate> &coords)
 
 void OSCTunnel::sendAttractionPoints(vector<Coordinate> &coords)
 {
+    ofxOscMessage m;
+     m.setAddress( "/attractionpoints" );
     for (int i = 0; i < coords.size(); i++) {
-        ofxOscMessage m;
-        m.setAddress( "/attractionpoint" );
         m.addFloatArg(coords[i].x);
         m.addFloatArg(coords[i].y);
         m.addFloatArg(coords[i].z);
-        sender.sendMessage(m);
     }
+    sender.sendMessage(m);
     return;
 }
 
