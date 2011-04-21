@@ -26,11 +26,11 @@ public class Paradise extends PApplet implements OSCListener {
 	AABB aabb;
 	World world;
 	PFont font;
-
 	
 	boolean debug = true;
 	List<Vec2> debugPoints;
 	boolean useMouse = debug;
+	boolean showBoxes = true;
 	
 	String sw = "                       /~\\    " + 
 				"                      |oo )   " +                          
@@ -100,7 +100,7 @@ public class Paradise extends PApplet implements OSCListener {
 				(int) random(COLUMNS));
 
 		font = this.loadFont("Arcade-48.vlw");
-		textFont(font);
+		textFont(font,20);
 		textAlign(LEFT, CENTER);
 		// noCursor();
 		size(w, h);
@@ -150,7 +150,9 @@ public class Paradise extends PApplet implements OSCListener {
 			// attractionPoints.add(mousePos);
 			for (Vec2 v : imageData) {
 				//text(".", (int) v.x * scale.x, (int) v.y * scale.y);
-				rect((int)v.x*scale.x-scale.x/2, (int)v.y*scale.y-scale.y/2, scale.x, scale.y);
+				if (showBoxes) {
+					rect((int)v.x*scale.x-scale.x/2, (int)v.y*scale.y-scale.y/2, scale.x, scale.y);
+				}
 				for (int i = 0; i < words.length; i++) {
 					words[i].addAttraction(v);
 				}
@@ -176,6 +178,8 @@ public class Paradise extends PApplet implements OSCListener {
 	public void keyPressed() {
 		if(key == 'm') {
 			useMouse = !useMouse;
+		} else if (key == 'b') {
+			showBoxes = !showBoxes;
 		}
 	}
 	
