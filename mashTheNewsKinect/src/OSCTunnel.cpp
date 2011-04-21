@@ -3,11 +3,17 @@
 OSCTunnel::OSCTunnel()
 {
     sender.setup( HOST, PORT );
+    sendStartMessage();
+}
+
+OSCTunnel::OSCTunnel(char * ip) {
+    sender.setup(ip, PORT);
+    sendStartMessage();
 }
 
 OSCTunnel::~OSCTunnel()
 {
-    //dtor
+    sendStopMessage();
 }
 
 void OSCTunnel::sendTestMessage() {
@@ -20,8 +26,34 @@ void OSCTunnel::sendTestMessage() {
 	sender.sendMessage( m );
 }
 
+void OSCTunnel::sendStartMessage() {
+    ofxOscMessage m;
+    m.setAddress( "/kinectisalive" );
+	m.addFloatArg( ofGetElapsedTimef() );
+	sender.sendMessage( m );
+}
+
+void OSCTunnel::sendStopMessage() {
+    ofxOscMessage m;
+    m.setAddress( "/kinectisdead" );
+	m.addFloatArg( ofGetElapsedTimef() );
+	sender.sendMessage( m );
+}
+
+
 void OSCTunnel::sendCoordinates(vector<Coordinate> &coords)
 {
+    return;
+}
+
+void OSCTunnel::sendImageData(vector<Coordinate> &coords) {
+    ofxOscMessage m;
+    m.setAddress( "/imagedata" );
+    for (int i = 0; i < coords.size(); i++) {
+        m.addFloatArg(coords[i].x);
+        m.addFloatArg(coords[i].y);
+    }
+    sender.sendMessage(m);
     return;
 }
 

@@ -1,6 +1,8 @@
 #include "testApp.h"
 #include "ofMain.h"
 
+#define SCALE_DOWN 32
+
 using namespace std;
 
 //--------------------------------------------------------------
@@ -10,21 +12,27 @@ void testApp::setup() {
 	kinect.setVerbose(true);
 	kinect.open();
 
+    cout << "kinect opened with resolution " << kinect.width << "," << kinect.height << endl;
+
 	colorImg.allocate(kinect.width, kinect.height);
 	grayImage.allocate(kinect.width, kinect.height);
+	scaleImage.allocate(kinect.width, kinect.height);
 	grayThresh.allocate(kinect.width, kinect.height);
 	grayThreshFar.allocate(kinect.width, kinect.height);
 	ofSetFrameRate(60);
     nearThreshold = 230;
-    farThreshold = 200;
+    farThreshold = 150;
 
 	// zero the tilt on startup
 	kinect.setCameraTiltAngle(0);
     ofBackground(0, 0, 0);
 
     //sender.setup( HOST, PORT );
+    //tunnel = new OSCTunnel("192.168.1.103");
+    osctunnels.push_back(new OSCTunnel("192.168.1.103"));
+    osctunnels.push_back(new OSCTunnel("192.168.1.101"));
 
-    tunnel.sendTestMessage();
+    //tunnel->sendTestMessage();
     vector<Coordinate> v;
 
     Coordinate c;
@@ -34,7 +42,7 @@ void testApp::setup() {
 
     v.push_back(c);
 
-    tunnel.sendAttractionPoints(v);
+    //tunnel->sendAttractionPoints(v);
 
     //cout << "halleluja!" << endl;
 
@@ -97,7 +105,43 @@ void testApp::update() {
             points.push_back(l);
             points.push_back(r);
     	}
-    	tunnel.sendAttractionPoints(points);
+
+    	for (vector<OSCTunnel*>::iterator i = osctunnels.begin(); i!=osctunnels.end();++i) {
+            (*i)->sendAttractionPoints(points);
+    	}
+
+    	//tunnel->sendAttractionPoints(points);
+    	scaleImage = grayImage;
+
+    	scaleImage.resize(kinect.width / SCALE_DOWN, kinect.height / SCALE_DOWN);
+
+        points.clear();
+        unsigned char * ppp = scaleImage.getPixels();
+        for ( int a = 0; a < scaleImage.getHeight() * scaleImage.getWidth(); ++a ) {
+            if (ppp[a] != 0) {
+               Coordinate z;
+               z.y = (int)(a/scaleImage.getWidth());
+               z.x = a%(int)scaleImage.getWidth();
+               z.y = z.y/scaleImage.getHeight();
+               z.x = z.x/scaleImage.getWidth();
+               z.z = -1;
+               points.push_back(z);
+            }
+        }
+
+        for (vector<OSCTunnel*>::iterator i = osctunnels.begin(); i!=osctunnels.end();++i) {
+            (*i)->sendImageData(points);
+    	}
+
+    	scaleImage.resize(scaleImage.width * SCALE_DOWN, scaleImage.height * SCALE_DOWN);
+        /*
+        IplImage* temp = cvCreateImage( cvSize(w,h), IPL_DEPTH_8U, 3 );
+        cvResize( cvImage, temp );
+        clear();
+        allocate( w, h );
+        cvCopy( temp, cvImage );
+        cvReleaseImage( &temp );
+        */
 	}
 }
 
@@ -108,18 +152,21 @@ void testApp::draw() {
     // kinect.drawDepth(10, 10, 400, 300);
     // kinect.draw(420, 10, 400, 300);
 
-    grayImage.draw(10, 320, 400, 300);
     // contourFinder.draw(420, 320, 400, 300);
 
     for(int i = 0; i < points.size(); i++) {
-        ofSetColor(255, 0, 0);
+        //ofSetColor(255, 0, 0);
         //ofCircle(points[i].x, points[i].y, 20);
-        ofCircle(points[i].x*grayImage.width, points[i].y*grayImage.height, 20);
+        //ofCircle(points[i].x*grayImage.width, points[i].y*grayImage.height, 20);
     }
 
 	ofSetColor(255, 255, 255);
 	ofDrawBitmapString(ofToString(nearThreshold) + " - " + ofToString(farThreshold),
                     20, ofGetHeight() - 50);
+
+    scaleImage.draw(ofGetWidth() / 2 - scaleImage.width / 2, ofGetHeight() / 2 - scaleImage.height / 2);
+    grayImage.draw(ofGetWidth() - 160, ofGetHeight() - 120, 160, 120);
+
 }
 
 //--------------------------------------------------------------

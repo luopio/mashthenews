@@ -30,12 +30,15 @@ class testApp : public ofBaseApp {
 
 		ofxCvColorImage		    colorImg;
 		ofxCvGrayscaleImage 	grayImage;
+		ofxCvGrayscaleImage 	scaleImage;
 		ofxCvGrayscaleImage 	grayThresh;
 		ofxCvGrayscaleImage 	grayThreshFar;
 		ofxCvContourFinder 	    contourFinder;
 
-        OSCTunnel tunnel;
+        OSCTunnel * tunnel;
+        vector<OSCTunnel*> osctunnels;
         vector<Coordinate> points;
+
 
 		int nearThreshold;
 		int farThreshold;
