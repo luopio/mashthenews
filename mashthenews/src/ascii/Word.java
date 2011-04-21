@@ -48,6 +48,7 @@ public class Word {
 		// 	letters[i].addAttraction(point);
 		//}
 		firstLetter.addAttraction(point);
+		// lastLetter.addAttraction(point);
 	}
 	
 	public void draw() {

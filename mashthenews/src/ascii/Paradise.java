@@ -18,7 +18,8 @@ public class Paradise extends PApplet implements OSCListener {
 
 	public static final int COLUMNS = 50;
 	public static final int ROWS = 30;
-	Word words[];
+	
+	List<Word> words;
 	Vec2 scale;
 	
 	AABB aabb;
@@ -79,19 +80,22 @@ public class Paradise extends PApplet implements OSCListener {
 		scale.x = w/COLUMNS;
 		scale.y = h/ROWS;
 		
-		words = new Word[5];
-		words[0] = new Word(this, "mummo", 		(int)random(ROWS), (int)random(COLUMNS));
-		words[1] = new Word(this, "hanke", 		(int)random(ROWS), (int)random(COLUMNS));
-		words[2] = new Word(this, "value", 		(int)random(ROWS), (int)random(COLUMNS));
-		words[3] = new Word(this, "kastanja", 	(int)random(ROWS), (int)random(COLUMNS));
-		words[4] = new Word(this, "perus", 		(int)random(ROWS), (int)random(COLUMNS));
+		words = new LinkedList<Word>();
+		words.add( new Word(this, "mummo", 		(int)random(ROWS), (int)random(COLUMNS)));
+		words.add( new Word(this, "hanke", 		(int)random(ROWS), (int)random(COLUMNS)));
+		words.add( new Word(this, "value", 		(int)random(ROWS), (int)random(COLUMNS)));
+		words.add( new Word(this, "kastanja", 	(int)random(ROWS), (int)random(COLUMNS)));
+		words.add( new Word(this, "perus", 		(int)random(ROWS), (int)random(COLUMNS)));
+		words.add( new Word(this, "jytky", 		(int)random(ROWS), (int)random(COLUMNS)));
+		words.add( new Word(this, "jumalauta", 	(int)random(ROWS), (int)random(COLUMNS)));
+		words.add( new Word(this, "mamminami", 	(int)random(ROWS), (int)random(COLUMNS)));
 		
 		font = this.loadFont("Arcade-48.vlw");
 		textFont(font);
 		textAlign(LEFT,CENTER);
 		//noCursor();
 		size(w, h);
-		debugPoints = new LinkedList();
+		debugPoints = new LinkedList<Vec2>();
 
 		oscReceiver = new OSCReceiver(7000);
 		oscReceiver.addListener(this, "/attractionpoints");
@@ -102,6 +106,18 @@ public class Paradise extends PApplet implements OSCListener {
 	public void draw() {
 		background(0, 0, 0);
 		world.step(1.0f/60, 6);
+		
+		if(debug) {
+			noStroke();
+			fill(160, 10, 10);
+			for(Vec2 v : debugPoints) {
+				rect((int)v.x*scale.x-scale.x/2, (int)v.y*scale.y-scale.y/2, scale.x, scale.y);
+				for(Word w : words) {
+					w.addAttraction(v);
+				}
+			}
+		}
+		
 		synchronized(attractionPoints) {
 			//attractionPoints.add(mousePos);
 			for (Vec2 v : attractionPoints) {
@@ -111,12 +127,12 @@ public class Paradise extends PApplet implements OSCListener {
 					fill(60, 60, 60);
 					rect((int)v.x*scale.x-scale.x/2, (int)v.y*scale.y-scale.y/2, scale.x, scale.y);
 				}
-				for(int i = 0; i < words.length; i++) {	
-					words[i].addAttraction(v);
+				for(Word w : words) {	
+					w.addAttraction(v);
 				}
 			}
-			for(int i = 0; i < words.length; i++) {	
-				words[i].draw();
+			for(Word w : words) {	
+				w.draw();
 			}
 		}
 		
@@ -124,8 +140,8 @@ public class Paradise extends PApplet implements OSCListener {
 			text("mouse", 10, this.height - 20);
 			Vec2 mousePos = new Vec2((int)((float)mouseX/width*COLUMNS), (int)((float)mouseY/height*ROWS));
 			text("X", (int)mousePos.x*scale.x, (int)mousePos.y*scale.y);
-			for(int i = 0; i < words.length; i++) {	
-				words[i].addAttraction(mousePos);
+			for(Word w : words) {	
+				w.addAttraction(mousePos);
 			}
 		}
 		
@@ -135,7 +151,7 @@ public class Paradise extends PApplet implements OSCListener {
 	}
 	
 
-	public Word[] getWords() {
+	public List<Word> getWords() {
 		return words;
 	}	
 	
@@ -146,10 +162,19 @@ public class Paradise extends PApplet implements OSCListener {
 	}
 	
 	public void mousePressed() {
+		// check if we hit one (remove)
+		Vec2 pointThatWasHit = null;
 		for(Vec2 point : debugPoints) {
 			if(abs(point.x - mouseX/scale.x) < 10 && abs(point.y - mouseX/scale.y) < 10) {
-				
+				pointThatWasHit = point;
 			}
+		}
+		if(pointThatWasHit != null) {
+			debugPoints.remove(pointThatWasHit);
+			println("remove point");
+		} else {
+			debugPoints.add(new Vec2(mouseX/scale.x, mouseY/scale.y));
+			println("add point");
 		}
 	}
 	
@@ -158,8 +183,8 @@ public class Paradise extends PApplet implements OSCListener {
 	}
 	
 	public void attractAll(Vec2 point) {
-		for (int i=0; i < words.length; i++) { 
-			words[i].addAttraction(point);
+		for (Word w : words) { 
+			w.addAttraction(point);
 		}
 	}
 
