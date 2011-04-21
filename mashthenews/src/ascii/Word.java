@@ -6,6 +6,8 @@ import org.jbox2d.dynamics.joints.DistanceJointDef;
 
 public class Word {
 	Letter[] letters;
+	Letter firstLetter;
+	Letter lastLetter;
 	int r, g, b;
 	int row, column;
 	Paradise parent;
@@ -33,12 +35,15 @@ public class Word {
 			}
 			prevLetter = letters[i];
 		}
+		firstLetter = letters[0];
+		lastLetter = letters[letters.length - 1];
 	}
 	
 	public void addAttraction(Vec2 point) {
-		for(int i = 0; i < letters.length; i++) {
-			letters[i].addAttraction(point);
-		}
+		//for(int i = 0; i < letters.length; i++) {
+		// 	letters[i].addAttraction(point);
+		//}
+		firstLetter.addAttraction(point);
 	}
 	
 	public void draw() {
