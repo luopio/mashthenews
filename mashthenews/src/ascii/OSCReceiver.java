@@ -53,7 +53,6 @@ public class OSCReceiver implements OscEventListener {
 	}
 		
 	public void oscEvent(OscMessage theOscMessage) {
-		PApplet.println("message received! " + theOscMessage);
 		for (OSCListenerSlot s: oscListeners) {
 			if (s.getAddPattern().equals(theOscMessage.addrPattern())) {
 				s.getOSCListener().oscMessageReceived(theOscMessage);

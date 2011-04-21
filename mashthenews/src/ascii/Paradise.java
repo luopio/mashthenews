@@ -10,18 +10,24 @@ import org.jbox2d.collision.AABB;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
 
+import com.sun.xml.internal.bind.v2.runtime.reflect.ListIterator;
+
 import oscP5.OscMessage;
 
 public class Paradise extends PApplet implements OSCListener {
 
-	public static int COLUMNS = 50;
-	public static int ROWS = 30;
+	public static final int COLUMNS = 50;
+	public static final int ROWS = 30;
 	Word words[];
 	Vec2 scale;
 	
 	AABB aabb;
 	World world;
 	PFont font;
+	
+	boolean debug = true;
+	List<Vec2> debugPoints;
+	boolean useMouse = debug;
 	
 	String sw = "                       /~\\    " + 
 				"                      |oo )   " +                          
@@ -69,7 +75,6 @@ public class Paradise extends PApplet implements OSCListener {
 		// Body groundBody = world.createBody(groundBodyDef);
 		// groundBody.createShape(groundPolyDef);
 		
-		
 		scale = new Vec2();
 		scale.x = w/COLUMNS;
 		scale.y = h/ROWS;
@@ -86,6 +91,7 @@ public class Paradise extends PApplet implements OSCListener {
 		textAlign(LEFT,CENTER);
 		//noCursor();
 		size(w, h);
+		debugPoints = new LinkedList();
 
 		oscReceiver = new OSCReceiver(7000);
 		oscReceiver.addListener(this, "/attractionpoints");
@@ -96,22 +102,32 @@ public class Paradise extends PApplet implements OSCListener {
 	public void draw() {
 		background(0, 0, 0);
 		world.step(1.0f/60, 6);
-		Vec2 mousePos = new Vec2((int)((float)mouseX/width*COLUMNS), (int)((float)mouseY/height*ROWS));
-		text("X", (int)mousePos.x*scale.x, (int)mousePos.y*scale.y);
 		synchronized(attractionPoints) {
 			//attractionPoints.add(mousePos);
 			for (Vec2 v : attractionPoints) {
-				text("Y", (int)v.x*scale.x, (int)v.y*scale.y);
+				// text("Y", (int)v.x*scale.x, (int)v.y*scale.y);
+				if(debug) {
+					noStroke();
+					fill(60, 60, 60);
+					rect((int)v.x*scale.x-scale.x/2, (int)v.y*scale.y-scale.y/2, scale.x, scale.y);
+				}
 				for(int i = 0; i < words.length; i++) {	
 					words[i].addAttraction(v);
 				}
 			}
 			for(int i = 0; i < words.length; i++) {	
-				words[i].addAttraction(mousePos);
 				words[i].draw();
 			}
 		}
-
+		
+		if(useMouse) {
+			text("mouse", 10, this.height - 20);
+			Vec2 mousePos = new Vec2((int)((float)mouseX/width*COLUMNS), (int)((float)mouseY/height*ROWS));
+			text("X", (int)mousePos.x*scale.x, (int)mousePos.y*scale.y);
+			for(int i = 0; i < words.length; i++) {	
+				words[i].addAttraction(mousePos);
+			}
+		}
 		
 		// make stuff float around randomly for now
 		// world.setGravity( new Vec2(random(-10.5f, 10.5f), random(-10.5f, 10.5f)) );
@@ -122,7 +138,21 @@ public class Paradise extends PApplet implements OSCListener {
 	public Word[] getWords() {
 		return words;
 	}	
-
+	
+	public void keyPressed() {
+		if(key == 'm') {
+			useMouse = !useMouse;
+		}
+	}
+	
+	public void mousePressed() {
+		for(Vec2 point : debugPoints) {
+			if(abs(point.x - mouseX/scale.x) < 10 && abs(point.y - mouseX/scale.y) < 10) {
+				
+			}
+		}
+	}
+	
 	public static void main(String args[]) {
 		PApplet.main(new String[] { "--present", "ascii.Paradise" });
 	}
@@ -132,7 +162,6 @@ public class Paradise extends PApplet implements OSCListener {
 			words[i].addAttraction(point);
 		}
 	}
-
 
 	/**
 	 * Processes OSC message contains an array of 3-dimensional coordinates. Always removes old values from memory.
